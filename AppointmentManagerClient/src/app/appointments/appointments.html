@@ -1,0 +1,117 @@
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Appointments</h2>
+
+    <button
+      class="btn btn-primary"
+      (click)="showForm = !showForm">
+      + Add Appointment
+    </button>
+  </div>
+
+  <!-- Add Appointment Form -->
+  <div class="card mb-4" *ngIf="showForm">
+    <div class="card-body">
+
+      <h4 class="mb-3">Add New Appointment</h4>
+
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newAppointment.title">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Date</label>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="newAppointment.date">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Time</label>
+        <input
+          type="time"
+          class="form-control"
+          [(ngModel)]="newAppointment.time">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          rows="3"
+          [(ngModel)]="newAppointment.description">
+      </textarea>
+      </div>
+
+      <button
+        class="btn btn-success me-2"
+        (click)="addAppointment()">
+        Save Appointment
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        (click)="showForm = false">
+        Cancel
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Appointments Table -->
+  <div class="card">
+    <div class="card-body">
+
+      <table class="table table-striped">
+
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let appointment of appointments">
+
+            <td>{{ appointment.title }}</td>
+            <td>{{ appointment.date | date:'yyyy-MM-dd' }}</td>
+            <td>{{ appointment.time }}</td>
+            <td>{{ appointment.description }}</td>
+
+            <td>
+              <button class="btn btn-sm btn-warning me-2">
+                Edit
+              </button>
+
+              <button class="btn btn-sm btn-danger">
+                Delete
+              </button>
+            </td>
+
+          </tr>
+
+          <tr *ngIf="appointments.length === 0">
+            <td colspan="5" class="text-center">
+              No appointments found.
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+
+</div>
