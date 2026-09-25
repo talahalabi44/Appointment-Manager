@@ -2,6 +2,8 @@
 using AppointmentManagerAPI.DTOs;
 using AppointmentManagerAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentManagerAPI.Controllers
@@ -15,24 +17,6 @@ namespace AppointmentManagerAPI.Controllers
         public AppointmentsController(AppDbContext context)
         {
             _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAppointments()
-        {
-            var appointments = await _context.Appointments
-                .Select(a => new AppointmentDto
-                {
-                    Id = a.Id,
-                    Title = a.Title,
-                    Date = a.Date,
-                    Time = a.Time,
-                    Description = a.Description,
-                    CategoryId = a.CategoryId
-                })
-                .ToListAsync();
-
-            return Ok(appointments);
         }
 
         [HttpGet("{id}")]

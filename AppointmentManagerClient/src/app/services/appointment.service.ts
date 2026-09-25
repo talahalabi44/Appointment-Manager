@@ -17,4 +17,12 @@ export class AppointmentService {
   addAppointment(appointment: any) {
     return this.http.post<any>(this.apiUrl, appointment);
   }
+
+  updateAppointment(id: number, appointment: any) {
+    return this.http.put(`${this.apiUrl}/${id}`, appointment);
+  }
+
+  deleteAppointment(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

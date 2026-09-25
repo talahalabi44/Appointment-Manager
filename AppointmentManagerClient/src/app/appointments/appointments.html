@@ -5,16 +5,17 @@
 
     <button
       class="btn btn-primary"
-      (click)="showForm = !showForm">
+      (click)="showForm = true; editing = false">
       + Add Appointment
     </button>
   </div>
 
-  <!-- Add Appointment Form -->
   <div class="card mb-4" *ngIf="showForm">
     <div class="card-body">
 
-      <h4 class="mb-3">Add New Appointment</h4>
+      <h4 class="mb-3">
+        {{ editing ? 'Edit Appointment' : 'Add New Appointment' }}
+      </h4>
 
       <div class="mb-3">
         <label class="form-label">Title</label>
@@ -51,20 +52,19 @@
 
       <button
         class="btn btn-success me-2"
-        (click)="addAppointment()">
-        Save Appointment
+        (click)="editing ? updateAppointment() : addAppointment()">
+        {{ editing ? 'Update Appointment' : 'Save Appointment' }}
       </button>
 
       <button
         class="btn btn-secondary"
-        (click)="showForm = false">
+        (click)="closeForm()">
         Cancel
       </button>
 
     </div>
   </div>
 
-  <!-- Appointments Table -->
   <div class="card">
     <div class="card-body">
 
@@ -90,11 +90,15 @@
             <td>{{ appointment.description }}</td>
 
             <td>
-              <button class="btn btn-sm btn-warning me-2">
+              <button
+                class="btn btn-sm btn-warning me-2"
+                (click)="editAppointment(appointment)">
                 Edit
               </button>
 
-              <button class="btn btn-sm btn-danger">
+              <button
+                class="btn btn-sm btn-danger"
+                (click)="deleteAppointment(appointment.id)">
                 Delete
               </button>
             </td>
